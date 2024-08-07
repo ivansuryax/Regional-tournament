@@ -1,0 +1,89 @@
+<html>
+  <body>
+<head>
+	<title>check user</title>
+	<link rel="stylesheet" href="register.css">
+<div class="login-box">
+  <h2>HOST LOGIN</h2>
+  <form>
+    <div class="user-box">
+      <input type="text" id="name1" name="" required="">
+      <label>ENTER USERNAME</label>
+    </div>
+    <div class="user-box">
+      <input type="password" id="pass1" name="" required="">
+      <label>PASSWORD</label>
+    </div>
+
+    <a  id="submit" >
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </a>
+
+    <a  href="hosthome.html">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      return
+    </a>
+  </form>
+</div>
+ </form>
+</div>
+</head>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+  import {getDatabase, ref, get, set, child, update, remove} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCerunFjWfurqAcpJhv9xklOho6Rxe4_1U",
+    authDomain: "login-c3ddb.firebaseapp.com",
+    databaseURL: "https://login-c3ddb-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "login-c3ddb",
+    storageBucket: "login-c3ddb.appspot.com",
+    messagingSenderId: "794850398401",
+    appId: "1:794850398401:web:41841cc198a9db67de8440"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase();
+  var name1 = document.getElementById("name1");
+  var pass1= document.getElementById("pass1");
+  var submit = document.getElementById("submit");
+
+  function insertData(){ 
+      const dbr = ref(db);   
+get(child(dbr,"Users/"+name1.value)).then((snapshot)=>{
+      if(snapshot.exists()){
+        if(name1.value == snapshot.val().Name && pass1.value == snapshot.val().Password){
+          window.location.href="scorehost.html";
+          alert("Success!")
+        }
+        else{
+          alert("NO USER FOUND");
+        }
+
+      }
+      else{
+        alert("NO USER FOUND");
+      }
+    }).catch((error)=>{
+      alert("Unsccuessful !"+error);
+    })
+}
+
+submit.addEventListener("click",insertData);
+</script>
+</body>
+</html>

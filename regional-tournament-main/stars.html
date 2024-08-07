@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>stars</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <H1 style="font-size: 50px; text-align: center; color: aliceblue;">STARPLAYERS</H1>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body background="BG2.jpg" style="background-size:cover" >
+    <marquee width="100%" direction="left" height="00px" style="font-size:xx-large;color: aliceblue;" >
+        STAR PLAYERS
+        </marquee>
+    <div class="column">
+        <table class="table table-success table-striped table-hover">
+            <th>MATCH NAME</th>
+            <th>STARPLAYER-1 </th>
+            <th>contact </th>
+            <th>STARPLAYER-2</th>
+            <th>contact </th>
+            <th>STARPLAYER-3</th>
+            <th>contact </th>
+            <th>STARPLAYER-4</th>
+            <th>contact </th>
+            <tbody id="table-body">
+
+            </tbody>
+        
+        </table>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+
+    <script>
+        const firebaseConfig = {
+  apiKey: "AIzaSyCerunFjWfurqAcpJhv9xklOho6Rxe4_1U",
+  authDomain: "login-c3ddb.firebaseapp.com",
+  databaseURL: "https://login-c3ddb-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "login-c3ddb",
+  storageBucket: "login-c3ddb.appspot.com",
+  messagingSenderId: "794850398401",
+  appId: "1:794850398401:web:41841cc198a9db67de8440"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    function selectalldata(){
+        firebase.database().ref('starplayers').once('value',
+        function(AllRecords){
+            AllRecords.forEach(
+                function(CurrentRecord){
+                    var matchname=CurrentRecord.val().match;
+                    var player1 = CurrentRecord.val().p1;
+                    var player2 = CurrentRecord.val().p2;
+                    var player3 = CurrentRecord.val().p3;
+                    var player4 = CurrentRecord.val().p4;
+                    var s1 = CurrentRecord.val().n1;
+                    var s2 = CurrentRecord.val().n2;
+                    var s3 = CurrentRecord.val().n3;
+                    var s4 = CurrentRecord.val().n4;
+                    AddItemsToTable(matchname,player1,player2,player3,player4,s1,s2,s3,s4);
+
+
+                }
+            );
+        });
+    }  
+
+
+    window.onload = selectalldata;
+
+    function AddItemsToTable(matchname,player1,player2,player3,player4,s1,s2,s3,s4){
+        var tbody = document.getElementById('table-body');
+      var trow = document.createElement('tr');
+      var td1 = document.createElement('td');
+      var td2 = document.createElement('td');
+      var td3 = document.createElement('td');
+      var td4 = document.createElement('td');
+      var td5 = document.createElement('td');
+      var td6 = document.createElement('td');
+      var td7 = document.createElement('td');
+      var td8 = document.createElement('td');
+      var td9 = document.createElement('td');
+      td1.innerHTML = matchname;
+      td2.innerHTML = player1;
+      td3.innerHTML = s1;
+      td4.innerHTML = player2;
+      td5.innerHTML = s2;
+      td6.innerHTML = player3;
+      td7.innerHTML = s3;
+      td8.innerHTML = player4;
+      td9.innerHTML = s4;
+      trow.appendChild(td1);
+       trow.appendChild(td2);
+       trow.appendChild(td3);
+       trow.appendChild(td4);
+       trow.appendChild(td5);
+       trow.appendChild(td6);
+       trow.appendChild(td7);
+       trow.appendChild(td8);
+       trow.appendChild(td9);
+       
+       tbody.appendChild(trow);
+
+}
+    
+
+
+
+    </script>
+</body>
+</html>

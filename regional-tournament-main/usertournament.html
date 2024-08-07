@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TOURNAMENTS</title>
+    <h1 style="color: WHITE; font-size: xx-large; text-align: center;">LIST OF TOURNAMENTS</h1>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body background="ground.jpg" style="background-size:cover;" >
+    <marquee width="100%" direction="left" height="00px" style="font-size:xx-large;color: aliceblue;" >
+        STAR PLAYERS
+        </marquee>
+    <div class="column">
+        <table class="table table-success table-striped table-hover">
+            <th>MATCH NAME</th>
+            <th>HOST</th>
+            <th>ENTRYFEE</th>
+            <th>MAX TEAM</th>
+            <th>LASTDATE</th>
+            <th>PRIZEPOOL</th>
+            <th>CONTACT</th>
+            <th>VENUE</th>
+
+            <tbody id="table-body">
+
+            </tbody>
+        
+        </table>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+
+    <script>
+        const firebaseConfig = {
+  apiKey: "AIzaSyCerunFjWfurqAcpJhv9xklOho6Rxe4_1U",
+  authDomain: "login-c3ddb.firebaseapp.com",
+  databaseURL: "https://login-c3ddb-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "login-c3ddb",
+  storageBucket: "login-c3ddb.appspot.com",
+  messagingSenderId: "794850398401",
+  appId: "1:794850398401:web:41841cc198a9db67de8440"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    function selectalldata(){
+        firebase.database().ref('host').once('value',
+        function(AllRecords){
+            AllRecords.forEach(
+                function(CurrentRecord){
+                    var trophy=CurrentRecord.val().contestname;
+                    var host = CurrentRecord.val().hostname;
+                    var csize = CurrentRecord.val().size;
+                    var cprize = CurrentRecord.val().prize;
+                    var entry = CurrentRecord.val().fee;
+                    var deadend = CurrentRecord.val().lastdate;
+                    var no = CurrentRecord.val().number;
+                    var ven = CurrentRecord.val().venue;
+                    AddItemsToTable(trophy,host,csize,cprize,entry,deadend,no,ven);
+
+
+                }
+            );
+        });
+    }  
+
+
+    window.onload = selectalldata;
+
+    function AddItemsToTable(trophy,host,csize,cprize,entry,deadend,no,ven){
+        var tbody = document.getElementById('table-body');
+      var trow = document.createElement('tr');
+      var td1 = document.createElement('td');
+      var td2 = document.createElement('td');
+      var td3 = document.createElement('td');
+      var td4 = document.createElement('td');
+      var td5 = document.createElement('td');
+      var td6 = document.createElement('td');
+      var td7 = document.createElement('td');
+      var td8 = document.createElement('td');
+      td1.innerHTML = trophy;
+      td2.innerHTML = host;
+      td3.innerHTML = entry;
+      td4.innerHTML = csize;
+      td5.innerHTML = deadend;
+      td6.innerHTML = cprize;
+      td7.innerHTML = no;
+      td8.innerHTML = ven;
+      trow.appendChild(td1);
+       trow.appendChild(td2);
+       trow.appendChild(td3);
+       trow.appendChild(td4);
+       trow.appendChild(td5);
+       trow.appendChild(td6);
+       trow.appendChild(td7);
+       trow.appendChild(td8);
+       tbody.appendChild(trow);
+
+}
+    
+
+
+
+    </script>
+</body>
+</html>
